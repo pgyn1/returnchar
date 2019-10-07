@@ -98,10 +98,6 @@ namespace ReturnChar
                         aStreamReader.Close();
                     }
                 }
-                catch (StackOverflowException stackexc)
-                {
-                    Console.WriteLine($"Book -> GetDictionary() + {stackexc.Message}\n{stackexc.InnerException}\nApp shutdown"); Environment.Exit(Environment.ExitCode);
-                }
                 catch (SystemException sysexc)
                 {
                     Console.WriteLine($"Book -> GetDictionary() + {sysexc.Message}\n{sysexc.InnerException}\nApp shutdown"); Environment.Exit(Environment.ExitCode);
