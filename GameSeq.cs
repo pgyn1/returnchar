@@ -67,16 +67,6 @@ namespace ReturnChar
             
         }
 
-        public static void CheckGameArrayZero()
-        {
-            if (GameArray.Count() == 0 || GameArray == null) { } else { GetGameModelZero(); }
-        }
-
-        public static void CheckGameArrayOne()
-        {
-            if (GameArray.Count() == 0 || GameArray == null) { } else { GetGameModelOne(); }
-        }
-
 
         public static bool ReturnPlayerScore(int x)
         {
@@ -107,63 +97,32 @@ namespace ReturnChar
             //display file(S)
             //prompt for file(s)
            
-            string[] restoredvalues = StreamClass.RestoreGameVars("C:/program files/returnchar/saves.csv");
-            DiffLvl = restoredvalues[0].First(); 
-            Mode = restoredvalues[1].First();
-            int gamesc = Convert.ToInt32(restoredvalues[2]);
-            int timersc = Convert.ToInt32(restoredvalues[3]);
-            int rsp = Convert.ToInt32(restoredvalues[4]);
-            int rcp = Convert.ToInt32(restoredvalues[5]);
-            int rnr = Convert.ToInt32(restoredvalues[6]);
+            //  ...
+            //  ...
+            List<int> gamearrayints = StreamClass.RestoreGameArray("C:/program files/returnchar/savelist.csv"); // restoring savelists
 
-            Player.RestorePlayerScore(rsp); //4
-            Player.RestoreComputerScore(rcp); //5
-            RandNumber = rnr;
-
-            switch (Mode.ToString().ToLower())
+            foreach(int i in gamearrayints)
             {
-                case "x":
-                    Timer = timersc;
-                    stopwatchtime.Restart();
-                    break;
-
-                case "y":
-                    break;
-
-                case "z":
-                    GameScore = gamesc;
-
-                    break;
-
-                default:
-                    GameScore = 5;
-                    break;
+                 GameArray.Add(Book.GetBookID(i));
             }
 
-            switch (DiffLvl.ToString().ToLower())
-            {
-                case "e":
-                case "m":
-                case "h":
-                case "s":
-                    GameArray.Clear();
-
-                    List<int> gamearrayints = StreamClass.RestoreGameArray("C:/program files/returnchar/savelist.csv"); // restoring savelists
-
-                    foreach(int i in gamearrayints)
-                    {
-                        GameArray.Add(Book.GetBookID(i));
-                    }
-
-                    GetGameModelOne();
-                    break;
-                default:
-                    //if null
-                    GameArray = BookGameSeq.GetGameArray('E');
-                    GetGameModelOne();
-                    break;
+                 GetGameModelOne();
+                 break;
+               
+            // ...
+            // ...
 
             }
+        }
+        
+        public static void CheckGameArrayZero()
+        {
+            if (GameArray.Count() == 0 || GameArray == null) { } else { GetGameModelZero(); }
+        }
+
+        public static void CheckGameArrayOne()
+        {
+            if (GameArray.Count() == 0 || GameArray == null) { } else { GetGameModelOne(); }
         }
 
         public static void Game()
